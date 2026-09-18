@@ -1,0 +1,21 @@
+/*
+ * 대화에서 확인된 함수 구조를 기준으로 정리한 참고본입니다.
+ * 실제 스키마의 함수와 비교 후 적용하십시오.
+ */
+CREATE OR REPLACE FUNCTION RTC_CAL_TOTAL_COST (
+	pCarCd			IN VARCHAR2,
+	pCostTypeCd		IN VARCHAR2 DEFAULT NULL,
+	pCostTypeSubCd	IN VARCHAR2 DEFAULT NULL
+) RETURN NUMBER IS
+	r NUMBER;
+BEGIN
+	SELECT	NVL(SUM(N_COST_PRICE * RTC_CAL_COST_ATTR(V_COST_TYPE_CD)), 0)
+	INTO	r
+	FROM	RTC_CAR_COST_MNG
+	WHERE	V_CARCD = pCarCd
+	AND		(pCostTypeCd IS NULL OR V_COST_TYPE_CD = pCostTypeCd)
+	AND		(pCostTypeSubCd IS NULL OR V_COST_TYPE_SUB_CD = pCostTypeSubCd);
+
+	RETURN r;
+END;
+/

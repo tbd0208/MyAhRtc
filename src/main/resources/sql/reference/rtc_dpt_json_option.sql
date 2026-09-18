@@ -1,0 +1,17 @@
+/*
+ * RTC_DPT.J_OPT에 선택적 설정을 저장하는 경우의 참고 SQL.
+ * V_STK_DPTCD 외의 구조는 실제 운영 정의에 맞춰 확장합니다.
+ */
+
+-- 조회
+SELECT	JSON_VALUE(J_OPT, '$.V_STK_DPTCD') AS V_STK_DPTCD
+FROM	RTC_DPT
+WHERE	V_DPTCD = :V_DPTCD;
+
+-- 변경: 기존 JSON의 다른 항목을 보존
+UPDATE	RTC_DPT
+SET		J_OPT = JSON_MERGEPATCH(
+			NVL(J_OPT, '{}'),
+			JSON_OBJECT('V_STK_DPTCD' VALUE :V_STK_DPTCD RETURNING CLOB)
+		)
+WHERE	V_DPTCD = :V_DPTCD;

@@ -1,0 +1,5 @@
+# 실제 값은 커밋하지 않습니다.
+jdbc.driverClassName=oracle.jdbc.OracleDriver
+jdbc.url=jdbc:oracle:thin:@//HOST:1521/SERVICE
+jdbc.username=CHANGE_ME
+jdbc.password=CHANGE_ME

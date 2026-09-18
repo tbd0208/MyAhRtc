@@ -1,0 +1,11 @@
+/target/
+.settings/
+.classpath
+.project
+.factorypath
+.springBeans
+.sts4-cache/
+.idea/
+*.iml
+*.log
+src/main/resources/config/jdbc.properties
